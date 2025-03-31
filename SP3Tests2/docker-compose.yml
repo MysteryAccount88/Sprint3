@@ -17,7 +17,7 @@ services:
       - DB_NAME=game_gurus       # db name
     restart: always              # if container crashes will restart by itself automatically
 
-  # MySQL database container configuration
+  # container configuration for MySQL database
   db:
     image: mysql:8.0
     ports:
