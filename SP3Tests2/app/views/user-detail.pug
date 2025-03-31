@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .user-detail
+    h1= user.username + "'s Profile"
+    
+    .user-info
+      p.user-email Email: #{user.email}
+      p.user-role Role: #{user.role}
+    
+    .user-tips
+      h2 Tips by #{user.username}
+      
+      if tips && tips.length
+        .tips-list
+          each tip in tips
+            .tip-item
+              h3= tip.title
+              p Game: #{tip.game_title}
+              p= tip.content.substring(0, 100) + (tip.content.length > 100 ? '...' : '')
+              a.btn(href=`/tips/${tip.id}`) Read More
+      else
+        p This user hasn't posted any tips yet.
+    
+    a.btn(href="/users") Back to Users

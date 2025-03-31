@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .tip-detail
+    h1= tip.title
+    p.tip-meta Game: #{tip.game_title}
+    p.tip-meta By: #{tip.username}
+    
+    .tip-content
+      p= tip.content
+    
+    a.btn(href=`/games/${tip.game_id}`) View Game
+    a.btn(href="/tips") Back to Tips

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  
+  .tips-grid
+    if tips && tips.length
+      each tip in tips
+        .tip-card
+          h3= tip.title
+          p Game: #{tip.game_title}
+          p By: #{tip.username}
+          p= tip.content.substring(0, 100) + (tip.content.length > 100 ? '...' : '')
+          a.btn(href=`/tips/${tip.id}`) Read More
+    else
+      p No tips found.

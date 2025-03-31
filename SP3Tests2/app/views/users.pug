@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  
+  .users-grid
+    if users && users.length
+      each user in users
+        .user-card
+          h3= user.username
+          p.user-role Role: #{user.role}
+          a.btn(href=`/users/${user.id}`) View Profile
+    else
+      p No users found.

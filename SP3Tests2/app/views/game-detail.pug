@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .game-detail
+    h1= game.title
+    
+    .game-info
+      if game.platform
+        p.game-meta Platform: #{game.platform}
+      if game.release_date
+        p.game-meta Release Date: #{new Date(game.release_date).toLocaleDateString()}
+      if game.description
+        h2 Description
+        p= game.description
+      
+      if categories && categories.length
+        h2 Categories
+        .category-list
+          each category in categories
+            span.category-tag= category.name
+    
+    .game-tips
+      h2 Tips for #{game.title}
+      
+      if tips && tips.length
+        .tips-list
+          each tip in tips
+            .tip-item
+              h3= tip.title
+              p By: #{tip.username}
+              p= tip.content.substring(0, 100) + (tip.content.length > 100 ? '...' : '')
+              a.btn(href=`/tips/${tip.id}`) Read More
+      else
+        p No tips available for this game yet.
+    
+    a.btn(href="/games") Back to Games

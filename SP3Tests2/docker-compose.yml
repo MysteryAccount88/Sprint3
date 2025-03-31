@@ -1,0 +1,36 @@
+version: '3'
+services:
+  # Node.js web application
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=game_gurus
+    restart: always
+
+  # MySQL database
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./game_gurus.sql:/docker-entrypoint-initdb.d/game_gurus.sql
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=game_gurus
+      - MYSQL_ROOT_HOST=%  # This allows connections from any host
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+
+volumes:
+  mysql_data:
