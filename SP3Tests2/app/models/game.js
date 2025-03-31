@@ -1,25 +1,29 @@
-// models/game.js - Game model
 const db = require('../services/db');
 
+//Game class, provides methods to retriev game data and related info
 class Game {
     // Game properties
-    id;
-    title;
-    description;
-    platform;
-    release_date;
+    id;               // Unique id for the game
+    title;            // title/name
+    description;      // description
+    platform;         // Platform the game is available on
+    release_date;     // Release date
     
+// Creates a new Game instance
     constructor(id = null) {
         this.id = id;
     }
     
-    // Get game by ID
+    /* Get and populate game details from database
+       returns {Promise<boolean>} True if game is found, else its false */
     async getGameById() {
         if (!this.id) return false;
         
+        // Query to get game details by ID
         const sql = "SELECT * FROM Games WHERE id = ?";
         const result = await db.query(sql, [this.id]);
         
+        // If game was found, populate instance properties
         if (result.length) {
             this.title = result[0].title;
             this.description = result[0].description;
@@ -30,13 +34,13 @@ class Game {
         return false;
     }
     
-    // Get all games
+//Get all games from the database, sorted by title
     static async getAllGames() {
         const sql = "SELECT * FROM Games ORDER BY title";
         return await db.query(sql);
     }
     
-    // Get games by category
+    // Get all games from a specific category
     static async getGamesByCategory(categoryId) {
         const sql = `
             SELECT g.* 
@@ -47,10 +51,12 @@ class Game {
         return await db.query(sql, [categoryId]);
     }
     
-    // Get categories for a game
+
+    //Get all categories that this game belongs to
     async getGameCategories() {
         if (!this.id) return [];
         
+        // Query to get categories for this game using junction table
         const sql = `
             SELECT c.* 
             FROM Categories c 
@@ -60,10 +66,13 @@ class Game {
         return await db.query(sql, [this.id]);
     }
     
-    // Get tips for a game
+    
+    //Get every tip for this game
+
     async getGameTips() {
         if (!this.id) return [];
         
+        // Query to get tips for this game with username of the author
         const sql = `
             SELECT t.*, u.username 
             FROM Tips t 
