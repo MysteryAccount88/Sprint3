@@ -1,31 +1,31 @@
-// Extends the base layout template
+//- Extends the base layout template
 extends layout
 
-// Main content block that replaces layout's content
+//- Main content block that replaces layout's content
 block content
-  // Page heading
+  //- Page heading
   h1 Sign Up
   
-  // Signup form (submits to /signup route via POST)
+  //- Signup form
   form(action="/signup", method="POST")
-    // Username input field
+    //- Username input field
     div
       label(for="username") Username:
       input#username(type="text", name="username", required)
     
-    // Email input field
+    //- Email input field
     div
       label(for="email") Email:
       input#email(type="email", name="email", required)
     
-    // Password input field
+    //- Password input field
     div
       label(for="password") Password:
       input#password(type="password", name="password", required)
     
-    // Form actions
+    //- Form actions
     div
-      // Submit button
+      //- Submit button
       button.btn(type="submit") Sign Up
-      // Login link for existing users
+      //- Login link for existing users
       a(href="/login") Already have an account? Login
