@@ -1,3 +1,5 @@
+//- layout.pug
+//- Main layout template that defines the structure for all pages
 doctype html
 html(lang="en")
   head
@@ -6,23 +8,29 @@ html(lang="en")
     title= title ? `${title} | Game Gurus` : 'Game Gurus'
     link(rel='stylesheet', href='/css/main.css')
   body
+    //- Header section with navigation
     header
       nav.main-nav
+        //- Logo with home link
         a.logo(href='/')
           img.logo-icon(src='/images/GG_logo.png' alt='Game Gurus Logo' height='40')
           span Game Gurus
+        //- Main navigation links
         .nav-links
           a(href='/') Home
           a(href='/games') Games
           a(href='/tips') Tips
           a(href='/about') About
+        //- Authentication links
         .auth-links
           a(href='/login') Login
           a(href='/signup') Sign Up
     
+    //- Main content area - child templates will inject content here
     main.container
       block content
-
+    
+    //- Footer section
     footer
       .footer-content
         p &copy; 2025 Game Gurus. All rights reserved.
