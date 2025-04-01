@@ -1,5 +1,4 @@
-//- layout.pug
-//- Main layout template that defines the structure for all pages
+//- Main layout template that holds the structure for all pages
 doctype html
 html(lang="en")
   head
@@ -8,10 +7,10 @@ html(lang="en")
     title= title ? `${title} | Game Gurus` : 'Game Gurus'
     link(rel='stylesheet', href='/css/main.css')
   body
-    //- Header section with navigation
+    //- header section with navigation
     header
       nav.main-nav
-        //- Logo with home link
+        //- logo with home link
         a.logo(href='/')
           img.logo-icon(src='/images/GG_logo.png' alt='Game Gurus Logo' height='40')
           span Game Gurus
@@ -21,12 +20,11 @@ html(lang="en")
           a(href='/games') Games
           a(href='/tips') Tips
           a(href='/about') About
-        //- Authentication links
+        //- Authentication links (we will expand on sprint 4)
         .auth-links
           a(href='/login') Login
           a(href='/signup') Sign Up
     
-    //- Main content area - child templates will inject content here
     main.container
       block content
     
