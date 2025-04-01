@@ -1,4 +1,3 @@
-// app.js - Main application file
 const express = require('express');
 const path = require('path');
 const Game = require('./models/game');
@@ -6,28 +5,28 @@ const Tip = require('./models/tip');
 const Category = require('./models/category');
 const User = require('./models/user');
 
-// Initialize express app
+// begin express app
 const app = express();
 
-// Configure middleware
+// Configurez thr middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../static')));
 
-// Set up the Pug templating engine
+// Set up engine for pug templating
 app.set('view engine', 'pug');
 app.set('views', '/usr/src/app/app/views');
 
-// Home page route
+// route to the home page
 app.get('/', async (req, res) => {
     try {
-        // Get recent tips and games for the home page
+        // Get recent tips/games for the home page
         const tips = await Tip.getAllTips();
         const games = await Game.getAllGames();
         const categories = await Category.getAllCategories();
         
         res.render('home', {
             title: 'Game Gurus - Gaming Tips & Tricks',
-            tips: tips.slice(0, 3), // Show only 3 tips
+            tips: tips.slice(0, 3), 
             games: games,
             categories: categories
         });
@@ -37,7 +36,7 @@ app.get('/', async (req, res) => {
     }
 });
 
-// Games list route
+// route for gameslist
 app.get('/games', async (req, res) => {
     try {
         const games = await Game.getAllGames();
@@ -54,7 +53,7 @@ app.get('/games', async (req, res) => {
     }
 });
 
-// Game detail route
+// route to game detail
 app.get('/games/:id', async (req, res) => {
     try {
         const gameId = req.params.id;
@@ -81,7 +80,7 @@ app.get('/games/:id', async (req, res) => {
     }
 });
 
-// Filter games by category
+// filter games by category
 app.get('/category/:id', async (req, res) => {
     try {
         const categoryId = req.params.id;
@@ -90,10 +89,10 @@ app.get('/category/:id', async (req, res) => {
         // Get category details
         await category.getCategoryById();
         
-        // Get games in this category
+        // Get the games in this category
         const games = await Game.getGamesByCategory(categoryId);
         
-        // Get all categories for navigation
+        // get all categories for navigation
         const categories = await Category.getAllCategories();
         
         res.render('games', {
@@ -108,7 +107,7 @@ app.get('/category/:id', async (req, res) => {
     }
 });
 
-// Tips list route
+// route to tips list
 app.get('/tips', async (req, res) => {
     try {
         const tips = await Tip.getAllTips();
@@ -123,13 +122,13 @@ app.get('/tips', async (req, res) => {
     }
 });
 
-// Tip detail route
+// route for tip detail
 app.get('/tips/:id', async (req, res) => {
     try {
         const tipId = req.params.id;
         const tip = new Tip(tipId);
         
-        // Get tip details
+        // Gets tip details
         await tip.getTipById();
         
         res.render('tip-detail', {
@@ -142,7 +141,7 @@ app.get('/tips/:id', async (req, res) => {
     }
 });
 
-// Users list route
+// users list route
 app.get('/users', async (req, res) => {
     try {
         const users = await User.getAllUsers();
@@ -157,16 +156,16 @@ app.get('/users', async (req, res) => {
     }
 });
 
-// User profile route
+// user profile route
 app.get('/users/:id', async (req, res) => {
     try {
         const userId = req.params.id;
         const user = new User(userId);
         
-        // Get user details
+        // Gets user details
         await user.getUserById();
         
-        // Get tips by this user
+        // gets tips by this user
         const userTips = await user.getUserTips();
         
         res.render('user-detail', {
@@ -180,7 +179,7 @@ app.get('/users/:id', async (req, res) => {
     }
 });
 
-// Auth routes (placeholders for Sprint 3)
+// Auth routes (just placeholders for now)
 app.get('/login', (req, res) => {
     res.render('login', { title: 'Login' });
 });
