@@ -1,4 +1,3 @@
-// models/user.js - User model
 const db = require('../services/db');
 
 class User {
