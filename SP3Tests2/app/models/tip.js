@@ -1,4 +1,3 @@
-// models/tip.js - Tip model
 const db = require('../services/db');
 
 class Tip {
